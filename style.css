@@ -1,0 +1,58 @@
+.calculator {
+    width: 320px;
+    height: 420px;
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: lightgrey;
+}
+
+.display {
+    width: 300px;
+    height: 100px;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin: 10px;
+    background-color: azure;
+    display: flex;
+    flex-direction: column;
+}
+
+.operation {
+    margin: 10px;
+    flex: 30%;
+    align-self: flex-end;
+}
+
+.result {
+    margin: 10px;
+    flex: 50%;
+    font-size: 35px;
+    align-self: flex-end;
+}
+
+.buttons {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.btn {
+    border-radius: 5px;
+    margin: 10px;
+    flex: 15%;
+    padding: 10px 0px;
+}
+
+.delete, .clear{
+    flex-grow: 5; 
+    flex: 40%;
+    background-color: lightcoral;
+}
+
+.equal {
+    background-color: coral;
+}
+
+.addbtn ,.mulbtn ,.divbtn ,.subbtn {
+    background-color: lightslategrey;
+    color: white;
+}
