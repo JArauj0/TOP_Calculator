@@ -1,6 +1,6 @@
 .calculator {
     width: 320px;
-    height: 420px;
+    height: 440px;
     border: 1px solid black;
     border-radius: 10px;
     background-color: lightgrey;
@@ -30,20 +30,23 @@
     align-self: flex-end;
 }
 
+.brand {
+    margin-left: 125px;
+}
+
 .buttons {
     display: flex;
     flex-wrap: wrap;
 }
 
-.btn {
+#btn {
     border-radius: 5px;
     margin: 10px;
     flex: 15%;
     padding: 10px 0px;
 }
 
-.delete, .clear{
-    flex-grow: 5; 
+.delete#btn, .clear#btn{
     flex: 40%;
     background-color: lightcoral;
 }

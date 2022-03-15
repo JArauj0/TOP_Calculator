@@ -11,28 +11,29 @@
 <body>
     <div class="calculator">
         <div class="display">
-            <div class="operation">1+1</div>
-            <div class="result">2</div>
+            <div class="operation"></div>
+            <div class="result"></div>
         </div>
+        <div class="brand">The Odin Project Calculator</div>
         <div class="buttons">
-            <button class="btn delete">DELETE</button>
-            <button class="btn clear">CLEAR</button>
-            <button class="btn 1">1</button>
-            <button class="btn 2">2</button>
-            <button class="btn 3">3</button>
-            <button class="btn addbtn">+</button>
-            <button class="btn 4">4</button>
-            <button class="btn 5">5</button>
-            <button class="btn 6">6</button>
-            <button class="btn subbtn">-</button>
-            <button class="btn 7">7</button>
-            <button class="btn 8">8</button>
-            <button class="btn 9">9</button>
-            <button class="btn mulbtn">*</button>
-            <button class="btn dot">.</button>
-            <button class="btn 0">0</button>
-            <button class="btn equal">=</button>
-            <button class="btn divbtn">/</button>
+            <button id="btn" class="delete" onclick="del()">BACKSPACE</button>
+            <button id="btn" class="clear" onclick="batata()">CLEAR</button>
+            <button id="btn" class="7" onclick="add7()">7</button>
+            <button id="btn" class="8" onclick="add8()">8</button>
+            <button id="btn" class="9" onclick="add9()">9</button>
+            <button id="btn" class="addbtn" onclick="plus()">+</button> 
+            <button id="btn" class="4" onclick="add4()">4</button>
+            <button id="btn" class="5" onclick="add5()">5</button>
+            <button id="btn" class="6"onclick="add6()">6</button>
+            <button id="btn" class="subbtn" onclick="sub()">-</button>
+            <button id="btn" class="1" onclick="add1()">1</button>
+            <button id="btn" class="2" onclick="add2()">2</button>
+            <button id="btn" class="3" onclick="add3()">3</button>
+            <button id="btn" class="mulbtn" onclick="mul()">x</button>
+            <button id="btn" class="dot" onclick="dot()">.</button>
+            <button id="btn" class="0" onclick="add0()">0</button>
+            <button id="btn" class="equal" onclick="equal()">=</button>
+            <button id="btn" class="divbtn" onclick="div()">÷</button>
         </div>
     </div>
 </body>
