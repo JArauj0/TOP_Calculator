@@ -13,14 +13,14 @@ function operation (var1, var2, operator) {
         } else {
             return a-b;
         }
-    } else if (operator == '*') {
+    } else if (operator == 'x') {
         if ((a*b) % 1 != 0) {
             return (a*b).toFixed(2);
         } else {
             return a*b;
         }
-    } else if (operator == '/') {
-        if ((a+b) % 1 != 0) {
+    } else if (operator == '÷') {
+        if ((a/b) % 1 != 0) {
             return (a/b).toFixed(2);
         } else {
         return (a/b);
@@ -33,11 +33,11 @@ const resultDisplay = document.querySelector('.result');
 
 let displayText = operationDisplay.textContent;
 let operator;
-let pattern = /[+/*-]/;
+let pattern = /[+÷x-]/;
 let plusPattern = /[+]/;
 let subPattern = /[-]/;
-let mulPattern = /[*]/;
-let divPattern = /[/]/;
+let mulPattern = /[x]/;
+let divPattern = /[÷]/;
 let equalPattern = /[=]/;
 
 function addNumber(number) {
@@ -89,11 +89,15 @@ function add0() {
 }
 
 function dot() {
-    if (operationDisplay.textContent.length > 0) {
+    if (operationDisplay.textContent.length == 0) {
+        operationDisplay.textContent = '0.';
+    } else if (operationDisplay.textContent.length > 0) {
         if (operationDisplay.textContent[operationDisplay.textContent.length - 1] == '.') {
             return;
+        } else if (isNaN(operationDisplay.textContent[operationDisplay.textContent.length-1])) {
+            operationDisplay.textContent += '0.';
         } else {
-        operationDisplay.textContent += '.';
+            operationDisplay.textContent += '.';
         }
     }
 }
@@ -107,57 +111,32 @@ function batata() {
     resultDisplay.textContent = '';
 }
 
+function splitOp() {
+    let splitter = operationDisplay.textContent.search(pattern);
+    let a = operationDisplay.textContent.slice(0, splitter);
+    let b = operationDisplay.textContent.slice(splitter+1, operationDisplay.textContent.length);
+    
+    resultDisplay.textContent = operation(a, b, operator);
+}
+
 function equal() {
     if (pattern.test(operationDisplay.textContent)) {
         if (plusPattern.test(operationDisplay.textContent)) {
             operator = '+';
-            let splitter = operationDisplay.textContent.search(pattern);
-            let a = operationDisplay.textContent.slice(0, splitter);
-            let b = operationDisplay.textContent.slice(splitter+1, operationDisplay.textContent.length);
-        
-            console.log(a)
-            console.log(b)
-            console.log(splitter)
-            console.log(operation(a,b, operator));
-            
-            resultDisplay.textContent = operation(a, b, operator);
+            splitOp();
             operationDisplay.textContent = a + '+' + b + '=';
         } else if (subPattern.test(operationDisplay.textContent)) {
             operator = '-';
-            let splitter = operationDisplay.textContent.search(pattern);
-            let a = operationDisplay.textContent.slice(0, splitter);
-            let b = operationDisplay.textContent.slice(splitter+1, operationDisplay.textContent.length);
-        
-            console.log(a)
-            console.log(b)
-            console.log(operation(a,b, operator));
-            
-            resultDisplay.textContent = operation(a, b, operator);
+            splitOp();
             operationDisplay.textContent = a + '-' + b + '=';
         } else if (mulPattern.test(operationDisplay.textContent)) {
-            operator = '*';
-            let splitter = operationDisplay.textContent.search(pattern);
-            let a = operationDisplay.textContent.slice(0, splitter);
-            let b = operationDisplay.textContent.slice(splitter+1, operationDisplay.textContent.length);
-        
-            console.log(a)
-            console.log(b)
-            console.log(operation(a,b, operator));
-            
-            resultDisplay.textContent = operation(a, b, operator);
-            operationDisplay.textContent = a + '*' + b + '=';
+            operator = 'x';
+            splitOp();
+            operationDisplay.textContent = a + 'x' + b + '=';
         } else if (divPattern.test(operationDisplay.textContent)) {
-            operator = '/';
-            let splitter = operationDisplay.textContent.search(pattern);
-            let a = operationDisplay.textContent.slice(0, splitter);
-            let b = operationDisplay.textContent.slice(splitter+1, operationDisplay.textContent.length);
-        
-            console.log(a)
-            console.log(b)
-            console.log(operation(a,b, operator));
-            
-            resultDisplay.textContent = operation(a, b, operator);
-            operationDisplay.textContent = a + '/' + b + '=';
+            operator = '÷';
+            splitOp();
+            operationDisplay.textContent = a + '÷' + b + '=';
         }
     } else {
         operationDisplay.textContent += '+'
@@ -168,52 +147,19 @@ function plus() {
     if (pattern.test(operationDisplay.textContent)) {
         if (plusPattern.test(operationDisplay.textContent)) {
             operator = '+';
-            let splitter = operationDisplay.textContent.search(pattern);
-            let a = operationDisplay.textContent.slice(0, splitter);
-            let b = operationDisplay.textContent.slice(splitter+1, operationDisplay.textContent.length);
-        
-            console.log(a)
-            console.log(b)
-            console.log(splitter)
-            console.log(operation(a,b, operator));
-            
-            resultDisplay.textContent = operation(a, b, operator);
+            splitOp();
             operationDisplay.textContent = operation(a, b, operator) + '+';
         } else if (subPattern.test(operationDisplay.textContent)) {
             operator = '-';
-            let splitter = operationDisplay.textContent.search(pattern);
-            let a = operationDisplay.textContent.slice(0, splitter);
-            let b = operationDisplay.textContent.slice(splitter+1, operationDisplay.textContent.length);
-        
-            console.log(a)
-            console.log(b)
-            console.log(operation(a,b, operator));
-            
-            resultDisplay.textContent = operation(a, b, operator);
+            splitOp();
             operationDisplay.textContent = operation(a, b, operator) + '+';
         } else if (mulPattern.test(operationDisplay.textContent)) {
-            operator = '*';
-            let splitter = operationDisplay.textContent.search(pattern);
-            let a = operationDisplay.textContent.slice(0, splitter);
-            let b = operationDisplay.textContent.slice(splitter+1, operationDisplay.textContent.length);
-        
-            console.log(a)
-            console.log(b)
-            console.log(operation(a,b, operator));
-            
-            resultDisplay.textContent = operation(a, b, operator);
+            operator = 'x';
+            splitOp();
             operationDisplay.textContent = operation(a, b, operator) + '+';
         } else if (divPattern.test(operationDisplay.textContent)) {
-            operator = '/';
-            let splitter = operationDisplay.textContent.search(pattern);
-            let a = operationDisplay.textContent.slice(0, splitter);
-            let b = operationDisplay.textContent.slice(splitter+1, operationDisplay.textContent.length);
-        
-            console.log(a)
-            console.log(b)
-            console.log(operation(a,b, operator));
-            
-            resultDisplay.textContent = operation(a, b, operator);
+            operator = '÷';
+            splitOp();
             operationDisplay.textContent = operation(a, b, operator) + '+';
         }
     } else {
@@ -225,51 +171,19 @@ function sub() {
     if (pattern.test(operationDisplay.textContent)) {
         if (plusPattern.test(operationDisplay.textContent)) {
             operator = '+';
-            let splitter = operationDisplay.textContent.search(pattern);
-            let a = operationDisplay.textContent.slice(0, splitter);
-            let b = operationDisplay.textContent.slice(splitter+1, operationDisplay.textContent.length);
-        
-            console.log(a)
-            console.log(b)
-            console.log(operation(a,b, operator));
-            
-            resultDisplay.textContent = operation(a, b, operator);
+            splitOp();
             operationDisplay.textContent = operation(a, b, operator) + '-';
         } else if (subPattern.test(operationDisplay.textContent)) {
             operator = '-';
-            let splitter = operationDisplay.textContent.search(pattern);
-            let a = operationDisplay.textContent.slice(0, splitter);
-            let b = operationDisplay.textContent.slice(splitter+1, operationDisplay.textContent.length);
-        
-            console.log(a)
-            console.log(b)
-            console.log(operation(a,b, operator));
-            
-            resultDisplay.textContent = operation(a, b, operator);
+            splitOp();
             operationDisplay.textContent = operation(a, b, operator) + '-';
         } else if (mulPattern.test(operationDisplay.textContent)) {
-            operator = '*';
-            let splitter = operationDisplay.textContent.search(pattern);
-            let a = operationDisplay.textContent.slice(0, splitter);
-            let b = operationDisplay.textContent.slice(splitter+1, operationDisplay.textContent.length);
-        
-            console.log(a)
-            console.log(b)
-            console.log(operation(a,b, operator));
-            
-            resultDisplay.textContent = operation(a, b, operator);
+            operator = 'x';
+            splitOp();
             operationDisplay.textContent = operation(a, b, operator) + '-';
         } else if (divPattern.test(operationDisplay.textContent)) {
-            operator = '/';
-            let splitter = operationDisplay.textContent.search(pattern);
-            let a = operationDisplay.textContent.slice(0, splitter);
-            let b = operationDisplay.textContent.slice(splitter+1, operationDisplay.textContent.length);
-        
-            console.log(a)
-            console.log(b)
-            console.log(operation(a,b, operator));
-            
-            resultDisplay.textContent = operation(a, b, operator);
+            operator = '÷';
+            splitOp();
             operationDisplay.textContent = operation(a, b, operator) + '-';
         }
     } else {
@@ -281,56 +195,24 @@ function mul() {
     if (pattern.test(operationDisplay.textContent)) {
         if (plusPattern.test(operationDisplay.textContent)) {
             operator = '+';
-            let splitter = operationDisplay.textContent.search(plusPattern);
-            let a = operationDisplay.textContent.slice(0, splitter);
-            let b = operationDisplay.textContent.slice(splitter+1, operationDisplay.textContent.length);
-        
-            console.log(a)
-            console.log(b)
-            console.log(splitter)
-            console.log(operation(a,b, operator));
-            
-            resultDisplay.textContent = operation(a, b, operator);
-            operationDisplay.textContent = operation(a, b, operator) + '*';
+            splitOp();
+            operationDisplay.textContent = operation(a, b, operator) + 'x';
         } else if (subPattern.test(operationDisplay.textContent)) {
             operator = '-';
-            let splitter = operationDisplay.textContent.search(pattern);
-            let a = operationDisplay.textContent.slice(0, splitter);
-            let b = operationDisplay.textContent.slice(splitter+1, operationDisplay.textContent.length);
-        
-            console.log(a)
-            console.log(b)
-            console.log(operation(a,b, operator));
-            
+            splitOp();
             resultDisplay.textContent = operation(a, b, operator);
-            operationDisplay.textContent = operation(a, b, operator) + '*';
+            operationDisplay.textContent = operation(a, b, operator) + 'x';
         } else if (mulPattern.test(operationDisplay.textContent)) {
-            operator = '*';
-            let splitter = operationDisplay.textContent.search(pattern);
-            let a = operationDisplay.textContent.slice(0, splitter);
-            let b = operationDisplay.textContent.slice(splitter+1, operationDisplay.textContent.length);
-        
-            console.log(a)
-            console.log(b)
-            console.log(operation(a,b, operator));
-            
-            resultDisplay.textContent = operation(a, b, operator);
-            operationDisplay.textContent = operation(a, b, operator) + '*';
+            operator = 'x';
+            splitOp();
+            operationDisplay.textContent = operation(a, b, operator) + 'x';
         } else if (divPattern.test(operationDisplay.textContent)) {
-            operator = '/';
-            let splitter = operationDisplay.textContent.search(pattern);
-            let a = operationDisplay.textContent.slice(0, splitter);
-            let b = operationDisplay.textContent.slice(splitter+1, operationDisplay.textContent.length);
-        
-            console.log(a)
-            console.log(b)
-            console.log(operation(a,b, operator));
-            
-            resultDisplay.textContent = operation(a, b, operator);
-            operationDisplay.textContent = operation(a, b, operator) + '*';
+            operator = '÷';
+            splitOp();
+            operationDisplay.textContent = operation(a, b, operator) + 'x';
         }
     } else {
-        operationDisplay.textContent += '*'
+        operationDisplay.textContent += 'x';
     }
 }
 
@@ -338,54 +220,22 @@ function div() {
     if (pattern.test(operationDisplay.textContent)) {
         if (plusPattern.test(operationDisplay.textContent)) {
             operator = '+';
-            let splitter = operationDisplay.textContent.search(pattern);
-            let a = operationDisplay.textContent.slice(0, splitter);
-            let b = operationDisplay.textContent.slice(splitter+1, operationDisplay.textContent.length);
-        
-            console.log(a)
-            console.log(b)
-            console.log(operation(a,b, operator));
-            
-            resultDisplay.textContent = operation(a, b, operator);
-            operationDisplay.textContent = operation(a, b, operator) + '/';
+            splitOp();
+            operationDisplay.textContent = operation(a, b, operator) + '÷';
         } else if (subPattern.test(operationDisplay.textContent)) {
             operator = '-';
-            let splitter = operationDisplay.textContent.search(pattern);
-            let a = operationDisplay.textContent.slice(0, splitter);
-            let b = operationDisplay.textContent.slice(splitter+1, operationDisplay.textContent.length);
-        
-            console.log(a)
-            console.log(b)
-            console.log(operation(a,b, operator));
-            
-            resultDisplay.textContent = operation(a, b, operator);
-            operationDisplay.textContent = operation(a, b, operator) + '/';
+            splitOp();
+            operationDisplay.textContent = operation(a, b, operator) + '÷';
         } else if (mulPattern.test(operationDisplay.textContent)) {
-            operator = '*';
-            let splitter = operationDisplay.textContent.search(pattern);
-            let a = operationDisplay.textContent.slice(0, splitter);
-            let b = operationDisplay.textContent.slice(splitter+1, operationDisplay.textContent.length);
-        
-            console.log(a)
-            console.log(b)
-            console.log(operation(a,b, operator));
-            
-            resultDisplay.textContent = operation(a, b, operator);
-            operationDisplay.textContent = operation(a, b, operator) + '/';
+            operator = 'x';
+            splitOp();
+            operationDisplay.textContent = operation(a, b, operator) + '÷';
         } else if (divPattern.test(operationDisplay.textContent)) {
-            operator = '/';
-            let splitter = operationDisplay.textContent.search(pattern);
-            let a = operationDisplay.textContent.slice(0, splitter);
-            let b = operationDisplay.textContent.slice(splitter+1, operationDisplay.textContent.length);
-        
-            console.log(a)
-            console.log(b)
-            console.log(operation(a,b, operator));
-            
-            resultDisplay.textContent = operation(a, b, operator);
-            operationDisplay.textContent = operation(a, b, operator) + '/';
+            operator = '÷';
+            splitOp();
+            operationDisplay.textContent = operation(a, b, operator) + '÷';
         }
     } else {
-        operationDisplay.textContent += '/'
+        operationDisplay.textContent += '÷'
     }
 }
